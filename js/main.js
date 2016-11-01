@@ -1,6 +1,6 @@
 (function () {
     "use strict";
-    var apiUrl = "http://localhost:3000/animes/";
+    var apiUrl = "http://localhost:3000/users/";
     var contactsDisplayLocation;
     var Allcontacts;
 
@@ -50,8 +50,8 @@
         contacts.forEach(function (contact) {
             var $contactRow = $('<tr>').attr('data-contactid', contact._id);
             $contactRow.append(
-                "<td>" + (contact.userName || "") + "</td>" //+
-                // "<td>" + (contact.lastName || "") + "</td>" 
+                "<td>" + (contact.userName || "") + "</td>" +
+                "<td>" + (contact.password || "") + "</td>" 
             );
             // append row with contact details to DOM tree
             contactsDisplayLocation.append($contactRow);

@@ -1,8 +1,8 @@
 (function () {
     "use strict";
-    var apiUrl = "http://localhost:3000/animes/";
+    var apiUrl = "http://localhost:3000/users/";
     var contactsDisplayLocation;
-    var Allcontacts;
+    var users;
 
     // make ajax call to get all the contacts from api
     function getContacts() {
@@ -12,8 +12,8 @@
             dataType: 'JSON',
             success: function (data) {
                 if (data) {
-                    Allcontacts = data;
-                    displayContacts(Allcontacts);
+                    users = data;
+                    displayContacts(users);
                 } else {
                     console.log("Contact not Found");
                 }
@@ -30,7 +30,7 @@
         function contactWithID(thiscontact) {
             return thiscontact._id === contact._id;
         }
-        var contactToUpdate = Allcontacts.filter(contactWithID)[0];
+        var contactToUpdate = users.filter(contactWithID)[0];
         try {
             var contactToUpdateString = JSON.stringify(contactToUpdate);
             sessionStorage.setItem("contactToUpdate", contactToUpdateString);
@@ -50,8 +50,8 @@
         contacts.forEach(function (contact) {
             var $contactRow = $('<tr>').attr('data-contactid', contact._id);
             $contactRow.append(
-                "<td>" + (contact.userName || "") + "</td>" //+
-                // "<td>" + (contact.lastName || "") + "</td>" 
+                "<td>" + (contact.userName || "") + "</td>" +
+                "<td>" + (contact.password || "") + "</td>" 
             );
             // append row with contact details to DOM tree
             contactsDisplayLocation.append($contactRow);

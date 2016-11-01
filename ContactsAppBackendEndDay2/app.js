@@ -9,7 +9,8 @@ var db = require('./model/db');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var contacts = require('./routes/contacts');
+var animes = require('./routes/animes');
+var users = require('./routes/users');
 
 var app = express();
 var cors = require('cors');
@@ -30,7 +31,8 @@ app.use(cors());
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/contacts', contacts);
+app.use('/animes', animes);
+app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

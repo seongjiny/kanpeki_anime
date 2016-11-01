@@ -1,18 +1,19 @@
 (function () {
     "use strict";
-    var apiUrl = "http://localhost:3000/contacts/";
-    var contact;
+    var apiUrl = "http://localhost:3000/animes/";
+    var anime;
     var editForm = false;
     // FormsFields will be used when creating the forms
     var formFields = [
-        { name: "firstName", des: "First Name *", type: "text", required: true },
-        { name: "lastName", des: "Last Name *", type: "text", required: true },
-        { name: "email", des: "Email", type: "email", required: false },
-        { name: "homePhone", des: "Home Phone", type: "tel", required: false },
-        { name: "cellPhone", des: "Cell Phone", type: "tel", required: false },
-        { name: "birthDay", des: "Birth Day", type: "date", required: false },
-        { name: "website", des: "wWbsite", type: "url", required: false },
-        { name: "address", des: "Address", type: "text", required: false }
+        {name: "userName", des: "User Name *", type: "text", required: true}
+        // { name: "firstName", des: "First Name *", type: "text", required: true },
+        // { name: "lastName", des: "Last Name *", type: "text", required: true },
+        // { name: "email", des: "Email", type: "email", required: false },
+        // { name: "homePhone", des: "Home Phone", type: "tel", required: false },
+        // { name: "cellPhone", des: "Cell Phone", type: "tel", required: false },
+        // { name: "birthDay", des: "Birth Day", type: "date", required: false },
+        // { name: "website", des: "wWbsite", type: "url", required: false },
+        // { name: "address", des: "Address", type: "text", required: false }
     ];
 
     // Load contact from browser session storage
@@ -28,16 +29,16 @@
             return false;
         }
         if (!error) {
-            contact = JSON.parse(contactToUpdateString);
-            $('#contactName').text(contact.firstName + " " + contact.lastName);
+            anime = JSON.parse(contactToUpdateString);
+            $('#contactName').text(anime.UserName);
         }
     }
 
     // Update contact and display name on input change
     function inputHandler(property, value) {
         console.log(value);
-        contact[property] = value;
-        $('#contactName').text((contact.firstName || " ") + " " + (contact.lastName || " "));
+        anime[property] = value;
+        $('#contactName').text((anime.userName|| "noname"));
     }
 
     // Add update button and delete button
@@ -76,12 +77,12 @@
             var inputElement = $("<input>")
                 .attr("type", formField.type)
                 .attr("name", formField.name)
-                .attr("value", (contact[formField.name] || ""));
+                .attr("value", (anime[formField.name] || ""));
             if (formField.required) {
                 inputElement.prop("required", true).attr("aria-required", "true");
             }
             if (formField.type == "date"){
-                inputElement.get(0).valueAsDate = new Date(contact[formField.name]);
+                inputElement.get(0).valueAsDate = new Date(anime[formField.name]);
             }
             formElement.append(inputElement);
             inputElement.on('input', function () {
@@ -103,15 +104,15 @@
     // make ajax call to update this contact
     function saveContact() {
         $.ajax({
-            url: apiUrl+contact._id+"/",
+            url: apiUrl+anime._id+"/",
             type: 'PUT',
             dataType: 'JSON',
-            data: contact,
+            data: anime,
             success: function (data) {
                 if (data) {
                     window.location.href = "./index.html";
                 } else {
-                    console.log("Could not update the contact");
+                    console.log("Could not update the anime");
                 }
             },
             error: function (request, status, error) {
@@ -128,12 +129,12 @@
             url: apiUrl,
             type: 'POST',
             dataType: 'JSON',
-            data: contact,
+            data: anime,
             success: function (data) {
                 if (data) {
                     window.location.href = "./index.html";
                 } else {
-                    console.log("Could not create new contact");
+                    console.log("Could not create new anime");
                 }
             },
             error: function (request, status, error) {
@@ -146,7 +147,7 @@
     // make ajax call to delete this contact
     function deleteContact() {
         $.ajax({
-            url: apiUrl+contact._id+"/",
+            url: apiUrl+anime._id+"/",
             type: 'DELETE',
             success: function (data) {
                 window.location.href = "./index.html";
@@ -165,7 +166,7 @@
             editForm = true;
             loadContact();
         } else {
-            contact = {};
+            anime = {};
         }
         createForm();
     });
