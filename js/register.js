@@ -41,25 +41,53 @@
             });
         });
     }
-    //user verification
+
+    function addUser(userName,email,password){
+        $.ajax({
+            url: apiUrl,
+            type: 'POST',
+            dataType: 'JSON',
+            data:{
+                "userName":userName,
+                "password":password,
+                "email":email
+            },
+            success: function (data) {
+                if (data) {
+                    console.log("User added")
+                } else {
+                    console.log("Users not Found");
+                }
+            },
+            error: function (request, status, error) {
+                console.log(error, status, request);
+            }
+        });
+    }
+
+    //Check for duplicate username or email
     function checkUser(userName,email,password){
         var found= false;
-        for(var i=0;i<users.length;i++){
-            if(users[i].userName==userName){//check for user name
+        var size=users.length;
+        //loop through users
+        for(var i=0;i<size;i++){
+            if(users[i].userName==userName){
+                alert("Username Already Exist");
+                i=size;
                 found=true;
-                if(users[i].password==password){
-                    console.log("login success");//**TODO refresh page as logged in
-                }else{
-                    alert("incorrect password");
-                    console.log("incorrect password"); 
-                }
-                i=users.length; //break once user name matches
+            }else if(users[i].profile.email==email){
+                alert("Email Already Exist");
+                i=size;
+                found=true;
             }
         }
-        if(!found){//no match in username
-            console.log("invalid username");
-            alert("invalid username");
+        if(!found){
+            addUser(userName,email,password);
         }
+        // if(!found){//no match in username
+        //     console.log("invalid username");
+        //     alert("invalid username");
+        // }
     }
 
     $(document).ready(function () {
@@ -71,13 +99,14 @@
             var email = $('input:text[name="email"]').val();
             var password = $('input:password[name="psw"]').val();
             var password2 = $('input:password[name="psw2"]').val();
-            // console.log(uname+" "+email+" "+password+" "+password2)
+            console.log(uname+" "+email+" "+password+" "+password2)
             if(password!=password2){//if password and password2 does not match
                 alert("password does not match!");
             }else{
-                checkUser(userName,email,password);
+                checkUser(uname,email,password);
             }
-            
+            // console.log(users[0]);
+            // console.log(users[0].profile.email);
         });
     });
 

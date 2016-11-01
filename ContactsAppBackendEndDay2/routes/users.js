@@ -25,13 +25,13 @@ router.use(methodOverride(function (req, res) {
 router.route('/')
     // GET all contacts
     .get(function (req, res, next) {
-        mongoose.model('User').find({}, function (err, anime) {
+        mongoose.model('User').find({}, function (err, user) {
             if (err) {
                 return console.log(err); // CONSIDER: Might want to call next with error.  can add status code and error message.
             } else {
                 res.format({
                     json: function () {
-                        res.json(anime);
+                        res.json(user);
                     }
                 });
             }
@@ -40,7 +40,8 @@ router.route('/')
     .post(function (req, res) { // CONSIDER: can add a next parameter for next middleware to run in the middleware chain
         mongoose.model('User').create({
             userName: req.body.userName,
-            password: req.body.password
+            password: req.body.password,
+            profile: req.body.profile
             // firstName: req.body.firstName,
             // lastName: req.body.lastName,
             // email: req.body.email,
@@ -49,13 +50,13 @@ router.route('/')
             // birthDay: req.body.birthDay,
             // website: req.body.website,
             // address: req.body.address
-        }, function (err, anime) {
+        }, function (err, user) {
             if (err) {
                 res.send('Problem adding contact to db.'); // CONSIDER: Might want to call next with error.  can add status code and error message.
             } else {
                 res.format({
                     json: function () {
-                        res.json(anime);
+                        res.json(user);
                     }
                 });
             }
@@ -65,8 +66,8 @@ router.route('/')
 
 // route middleware to validata :id
 router.param('id', function (req, res, next, id) {
-    mongoose.model('User').findById(id, function (err, anime) {
-        if (err || anime === null) {
+    mongoose.model('User').findById(id, function (err, user) {
+        if (err || user === null) {
             res.status(404);
             handleError(err, res, 'Not found');
         } else {
@@ -91,23 +92,25 @@ function handleError(err, res, msg) {
 // CHALLENGE:  Implement these API endpoints before next class
 router.route('/:id')
     .get(function (req, res) {
-        mongoose.model('User').findById(req.id, function (err, anime) {
+        mongoose.model('User').findById(req.id, function (err, user) {
             if (err) {
                 res.status(404);
                 handleError(err, res, 'GET error, problem retrieving data');
             } else {
                 res.format({
                     json: function () {
-                        res.json(anime);
+                        res.json(user);
                     }
                 });
             }
         });
     })
     .put(function (req, res) {
-        mongoose.model('User').findById(req.id, function (err, anime) {
-            anime.userName = req.body.userName || anime.userName;
-            anime.password = req.body.password || anime.password;
+        mongoose.model('User').findById(req.id, function (err, user) {
+            user.userName = req.body.userName || user.userName;
+            user.password = req.body.password || user.password;
+            user.profile.email=req.body.profile.email || user.profile.email;
+
             // contact.firstName = req.body.firstName || contact.firstName;
             // contact.lastName = req.body.lastName || contact.lastName;
             // contact.email = req.body.email || contact.email;
@@ -116,10 +119,10 @@ router.route('/:id')
             // contact.birthDay = req.body.birthDay || contact.birthDay;
             // contact.website = req.body.website || contact.website;
             // contact.address = req.body.address || contact.address;
-            anime.save(function (err, person) {
+            user.save(function (err, person) {
                 if (err) {
                     res.status(404);
-                    handleError(err, res, 'Problem updating anime');
+                    handleError(err, res, 'Problem updating user');
                 } else {
                     res.format({
                         json: function () {
@@ -133,10 +136,10 @@ router.route('/:id')
     .delete(function (req, res) {
         mongoose.model('User').findByIdAndRemove(req.id)
             .exec(
-            function (err, anime) {
+            function (err, user) {
                 if (err) {
                     res.status(404);
-                    handleError(err, res, 'Problem deleting anime');
+                    handleError(err, res, 'Problem deleting user');
                 } else {
                     res.status(204);
                     res.format({

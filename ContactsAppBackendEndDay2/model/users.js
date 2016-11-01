@@ -1,9 +1,13 @@
 var mongoose = require('mongoose');
 var userSchema  = new mongoose.Schema({
-    userName: String
-    // firstName: String,
-    // lastName: String,
-    // email: String,
+    userName: String,
+    password: String,
+    profile: {
+        firstName: String,
+        lastName: String,
+        email: String
+
+    }
     // homePhone: String,
     // cellPhone: String,
     // birthDay: Date,
