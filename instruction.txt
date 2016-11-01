@@ -3,13 +3,13 @@
 - use animedb
 
 	create collection users
- db.createCollection("users",{capped:true,autoIndexID: true,size:6142800,max:10000});
+ db.createCollection("users",{capped:false,autoIndexID: true,size:6142800,max:10000});
 
 	check if you created the collection
 show collections
 
 	add user in this format
-db.users.insert({"userName":"zamanmx","password":"zamansan","profile":{"firstName":"Maxim","lastName":"Zaman","email":"zamanmx@rose-hulman.edu","phoneNumber:"123-123-1234","intro":"hi"}});
+db.users.insert({"userName":"zamanmx","password":"zamansan","profile":{"firstName":"Maxim","lastName":"Zaman","email":"zamanmx@rose-hulman.edu","phoneNumber":"123-123-1234","intro":"hi"}});
 
 	check if user is added
 db.users.find().pretty();
