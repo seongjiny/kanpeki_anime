@@ -1,7 +1,6 @@
 (function () {
     "use strict";
     var apiUrl = "http://localhost:3000/users/";
-    var contactsDisplayLocation;
     var users;
 
     // make ajax call to get all the contacts from api
@@ -24,29 +23,9 @@
         });
     }
 
-    // save contact to update in browser storage and go to update page
-    // function contactRowClickHandler(contact) {
-    //     var error = false;
-    //     function contactWithID(thiscontact) {
-    //         return thiscontact._id === contact._id;
-    //     }
-    //     var contactToUpdate = users.filter(contactWithID)[0];
-    //     try {
-    //         var contactToUpdateString = JSON.stringify(contactToUpdate);
-    //         sessionStorage.setItem("contactToUpdate", contactToUpdateString);
-    //     } catch (e) {
-    //         alert("Error when writing to Session Storage " + e);
-    //         error = true;
-    //     }
-    //     if (!error) {
-    //         window.location = "update.html";
-    //         return false;
-    //     }
-    // }
-
     // dynamically display all the contacts from api
     function displayContacts(contacts) {
-        contactsDisplayLocation = $("table.table-bordered>tbody").empty();
+        var location = $("table.table-bordered>tbody").empty();
         contacts.forEach(function (contact) {
             var $contactRow = $('<tr>').attr('data-contactid', contact._id);
             $contactRow.append(
@@ -54,7 +33,7 @@
                 "<td>" + (contact.password || "") + "</td>" 
             );
             // append row with contact details to DOM tree
-            contactsDisplayLocation.append($contactRow);
+            location.append($contactRow);
 
             // Save contact to update in local storage
             $contactRow.click(function () {
@@ -63,7 +42,7 @@
         });
     }
     //user verification
-    function checkUser(userName,password){
+    function checkUser(userName,email,password){
         var found= false;
         for(var i=0;i<users.length;i++){
             if(users[i].userName==userName){//check for user name
@@ -84,13 +63,20 @@
     }
 
     $(document).ready(function () {
-        // get contacts from api
+        // get users from api
         getUsers();
 
-        $('button:submit[name="login"]').on('click',function(){
+        $('button:submit[name="signup"]').on('click',function(){
             var uname = $('input:text[name="uname"]').val();
+            var email = $('input:text[name="email"]').val();
             var password = $('input:password[name="psw"]').val();
-            checkUser(uname,password);
+            var password2 = $('input:password[name="psw2"]').val();
+            // console.log(uname+" "+email+" "+password+" "+password2)
+            if(password!=password2){//if password and password2 does not match
+                alert("password does not match!");
+            }else{
+                checkUser(userName,email,password);
+            }
             
         });
     });
