@@ -188,3 +188,50 @@ html, body, .content {
     text-align: center;
     background-color: white;
 }
+
+.list-heading {
+    display: block;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    background-color: white;
+    padding: 10px;
+    font-weight: normal;
+    border-bottom: solid 3px #31aeff;
+}
+
+.lists-container {
+    width: 100%;
+    background-color: #f6f6f6;
+    padding: 20px;
+}
+
+.list-element {
+    display: block;
+    width: 90%;
+    height: 100px;
+    margin: auto auto 20px;
+    border: solid 3px #31aeff;
+    background-color: white;
+    padding: 10px;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+}
+
+.list-element:hover {
+    -ms-transform: scale(1.01, 1.01); /* IE 9 */
+    -webkit-transform: scale(1.01, 1.01); /* Safari */
+    transform: scale(1.01, 1.01);
+}
+
+.list-el-img {
+    height: 100px;
+    float: left;
+    margin-right: 20px;
+}
+
+.item-description {
+    font-weight: normal;
+}

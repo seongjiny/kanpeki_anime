@@ -69,10 +69,14 @@
             if(users[i].userName==userName){//check for user name
                 found=true;
                 if(users[i].password==password){
+
+                    // window.location.replace("index.html");
+
+                    alert("login success");
                     console.log("login success");//**TODO refresh page as logged in
                 }else{
                     alert("incorrect password");
-                    console.log("incorrect password"); 
+                    console.log("incorrect password");
                 }
                 i=users.length; //break once user name matches
             }
@@ -91,7 +95,6 @@
             var uname = $('input:text[name="uname"]').val();
             var password = $('input:password[name="psw"]').val();
             checkUser(uname,password);
-            
         });
     });
 
