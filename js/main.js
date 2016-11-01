@@ -1,21 +1,21 @@
 (function () {
     "use strict";
     var apiUrl = "http://localhost:3000/users/";
-    var contactsDisplayLocation;
-    var Allcontacts;
+    var usersDisplayLocation;
+    var Allusers;
 
-    // make ajax call to get all the contacts from api
-    function getContacts() {
+    // make ajax call to get all the users from api
+    function getUsers() {
         $.ajax({
             url: apiUrl,
             type: 'GET',
             dataType: 'JSON',
             success: function (data) {
                 if (data) {
-                    Allcontacts = data;
-                    displayContacts(Allcontacts);
+                    Allusers = data;
+                    displayUsers(Allusers);
                 } else {
-                    console.log("Contact not Found");
+                    console.log("User not Found");
                 }
             },
             error: function (request, status, error) {
@@ -24,48 +24,24 @@
         });
     }
 
-    // save contact to update in browser storage and go to update page
-    function contactRowClickHandler(contact) {
-        var error = false;
-        function contactWithID(thiscontact) {
-            return thiscontact._id === contact._id;
-        }
-        var contactToUpdate = Allcontacts.filter(contactWithID)[0];
-        try {
-            var contactToUpdateString = JSON.stringify(contactToUpdate);
-            sessionStorage.setItem("contactToUpdate", contactToUpdateString);
-        } catch (e) {
-            alert("Error when writing to Session Storage " + e);
-            error = true;
-        }
-        if (!error) {
-            window.location = "update.html";
-            return false;
-        }
-    }
-
-    // dynamically display all the contacts from api
-    function displayContacts(contacts) {
-        contactsDisplayLocation = $("table.table-bordered>tbody").empty();
-        contacts.forEach(function (contact) {
-            var $contactRow = $('<tr>').attr('data-contactid', contact._id);
-            $contactRow.append(
-                "<td>" + (contact.userName || "") + "</td>" +
-                "<td>" + (contact.password || "") + "</td>" 
+    // dynamically display all the users from api
+    function displayUsers(users) {
+        usersDisplayLocation = $("table.table-bordered>tbody").empty();
+        users.forEach(function (user) {
+            var $userRow = $('<tr>').attr('data-userid', user._id);
+            $userRow.append(
+                "<td>" + (user.userName || "") + "</td>" +
+                "<td>" + (user.password || "") + "</td>" 
             );
-            // append row with contact details to DOM tree
-            contactsDisplayLocation.append($contactRow);
+            // append row with user details to DOM tree
+            usersDisplayLocation.append($userRow);
 
-            // Save contact to update in local storage
-            $contactRow.click(function () {
-                contactRowClickHandler(contact);
-            });
         });
     }
 
     $(document).ready(function () {
-        // get contacts from api
-        getContacts();
+        // get users from api
+        getUsers();
     });
 
 })();
