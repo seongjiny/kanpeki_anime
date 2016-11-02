@@ -28,10 +28,7 @@ router.route('/')
     // GET all users
     .get(function (req, res) {
         console.log(req.body.userName+"--"+req.body.password);
-        mongoose.model('User').count({
-            userName:req.body.userName,
-            password:req.body.password
-        }, function (err, user) {
+        mongoose.model('User').find({}, function (err, user) {
             if (err) {
                 return console.log(err); // CONSIDER: Might want to call next with error.  can add status code and error message.
             } else {
@@ -76,6 +73,17 @@ router.route('/')
             }
         });
     });
+    // .delete(function (req, res){
+    //     mongoose.model('User').remove({userName: req.body.userName}, {
+    //         function (err){
+    //             if(err){
+    //                 res.status(500).send();
+    //             }else{
+    //                 res.status(200).send();
+    //             }
+    //         }
+    //     })
+    // });
 
 
 // route middleware to validata :id
