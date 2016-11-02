@@ -33,7 +33,7 @@ html, body, .content {
     margin: 0 auto;
     padding: 0;
     overflow: hidden;
-    background-color: rgba(246, 246, 246, 0.6);
+    background-color: rgba(246, 246, 246, 1);
 }
 
 .navbar li {
@@ -43,7 +43,7 @@ html, body, .content {
     margin: 0;
     padding: 0;
 }
-.navbar li a {
+.navbar li a, .navbar li span {
     display: block;
     color: rgb(31, 31, 31);
     text-align: center;
@@ -58,6 +58,8 @@ html, body, .content {
 .navbar li a:hover:not(.active) {
     background-color: #d2ced0;
 }
+
+
 
 .active {
     background-color: #31aeff;
@@ -265,4 +267,3 @@ html, body, .content {
 .table-bordered, th{
     border: 1px solid black;
 }
-
