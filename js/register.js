@@ -3,7 +3,7 @@
     var apiUrl = "http://localhost:3000/users/";
 
     function addUser(userName, password) {
-        if (checkUserName(userName) == 0) {
+        if (checkUserName(userName,password) == 0) {
             $.ajax({
                 url: apiUrl,
                 type: 'POST',
@@ -36,15 +36,18 @@
         return true;
     }
 
-    function checkUserName(username) {
+    function checkUserName(username,pwd) {
         console.log("----"+username.length);
         if (username.length < 5 || username.length > 20) {
-            alert("User Name should be between 5 to 20 characters");
+            alert("User Name should be between 5 and 20 characters");
             return -1;
         } else if (!validateCode(username)) {
             alert("Illegal character detected in User Name.");
             return -1;
-        } else {
+        } else if(pwd.length<8||pwd.length>20){
+            alsert("Password should be between 8 and 20 characters")
+            return -1;
+        }else{
             return 0;
         }
 

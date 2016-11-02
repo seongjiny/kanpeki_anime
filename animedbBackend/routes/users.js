@@ -27,15 +27,15 @@ router.use(methodOverride(function (req, res) {
 router.route('/')
     // GET all users
     .get(function (req, res) {
-        console.log(req.body.userName+"--"+req.body.password);
-        mongoose.model('User').count({
-            userName:req.body.userName,
-            password:req.body.password
+        // console.log(req.body.userName+"--"+req.body.password);
+        mongoose.model('User').find({
+            // userName:req.body.userName,
+            // password:req.body.password
         }, function (err, user) {
             if (err) {
                 return console.log(err); // CONSIDER: Might want to call next with error.  can add status code and error message.
             } else {
-                console.log(user);
+                // console.log(user);
                 // res.json(user);
                 res.format({
                     json: function () {
