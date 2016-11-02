@@ -39,7 +39,7 @@ router.route('/')
             }
         });
     })
-    .post(function (req, res) { // CONSIDER: can add a next parameter for next middleware to run in the middleware chain
+    .post(function (req, res) { 
         mongoose.model('User').count({ userName: req.body.userName }, function (err, count) {
             if (err) {
                 return console.log(err);
@@ -67,26 +67,6 @@ router.route('/')
                 }
             }
         });
-        // console.log("ab  " + user.userName);
-        // // if(){
-        // //     console.log(":::::");
-        // // }else{
-        // //     console.log("------");
-        // // }
-        // mongoose.model('User').create({
-        //     userName: req.body.userName,
-        //     password: req.body.password
-        // }, function (err, user) {
-        //     if (err) {
-        //         res.send('Problem adding user to db.'); // CONSIDER: Might want to call next with error.  can add status code and error message.
-        //     } else {
-        //         res.format({
-        //             json: function () {
-        //                 res.json(user);
-        //             }
-        //         });
-        //     }
-        // })
     });
 
 
@@ -166,20 +146,6 @@ router.route('/:id')
             }
             );
     });
-// function checkDuplicateUserName(userName) {
-//     var size = users.length;
-//     //loop through users
-//     for (var i = 0; i < size; i++) {
-//         if (users[i].userName == userName) {
-//             alert("Username Already Exist");
-//             i = size;
-//             found = true;
-//         }
-//     }
-//     if (!found) {
-//         addUser(userName, password);
-//     }
-// }
 
 module.exports = router;
 
