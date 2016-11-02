@@ -26,11 +26,17 @@ router.use(methodOverride(function (req, res) {
 // READY to build our API
 router.route('/')
     // GET all users
-    .get(function (req, res, next) {
-        mongoose.model('User').find({}, function (err, user) {
+    .get(function (req, res) {
+        console.log(req.body.userName+"--"+req.body.password);
+        mongoose.model('User').count({
+            userName:req.body.userName,
+            password:req.body.password
+        }, function (err, user) {
             if (err) {
                 return console.log(err); // CONSIDER: Might want to call next with error.  can add status code and error message.
             } else {
+                console.log(user);
+                // res.json(user);
                 res.format({
                     json: function () {
                         res.json(user);
@@ -40,7 +46,9 @@ router.route('/')
         });
     })
     .post(function (req, res) { 
-        mongoose.model('User').count({ userName: req.body.userName }, function (err, count) {
+        mongoose.model('User').count({ 
+            userName: req.body.userName
+         }, function (err, count) {
             if (err) {
                 return console.log(err);
             } else {
