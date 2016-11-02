@@ -66,6 +66,7 @@ html, body, .content {
 .banner {
     display: block;
     margin: auto;
+    width: 100%;
 }
 
 .carousel {
@@ -239,3 +240,29 @@ html, body, .content {
 .item-description {
     font-weight: normal;
 }
+
+.users-list {
+    border: 3px solid rgba(50, 174, 255, 0.45);
+    width: 200px;
+    margin:auto;
+    background-color: #efefef;
+    float: left;
+    padding: 10px;
+}
+
+.table-bordered {
+    border-collapse: collapse;
+    text-align: center;
+    width: 100%;
+}
+
+.table-bordered thead {
+    background-color: #00B7FF;
+    color: white;
+}
+
+
+.table-bordered, th{
+    border: 1px solid black;
+}
+

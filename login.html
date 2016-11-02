@@ -2,32 +2,18 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Home - Kanpeki Anime</title>
-
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="css/login.css">
-
 </head>
 
 <body>
-    <table class="table-bordered">
-		<thead>
-			<tr>
-				<th>UserName</th>
-				<th>Password</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
 <!-- Navigation -->
 <div class="content">
     <div class="nav-area">
@@ -42,6 +28,19 @@
 
 
     <div class="login-container">
+        <!--Debug mode only, show list of all users in the db-->
+        <div class="users-list">
+            <table class="table-bordered">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
         <!-- Log in form -->
         <form>
             <div class="container">
@@ -55,9 +54,6 @@
                 <input type="checkbox" checked="checked"> Remember me
             </div>
 
-            <div class="container">
-                <button type="button" class="cancelbtn">Cancel</button>
-            </div>
         </form>
     </div>
 </div>
