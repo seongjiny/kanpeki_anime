@@ -43,20 +43,9 @@ router.route('/')
         console.log("abc");
         mongoose.model('User').create({
             userName: req.body.userName,
-            password: req.body.password,
-            // profile:{
-            //     email:req.body.email
-            // }
+            password: req.body.password
 
-            // firstName: req.body.firstName,
-            // lastName: req.body.lastName,
-            // email: req.body.email,
-            // homePhone: req.body.homePhone,
-            // cellPhone: req.body.cellPhone,
-            // birthDay: req.body.birthDay,
-            // website: req.body.website,
-            // address: req.body.address
-        }, function (err, user) {
+          }, function (err, user) {
             if (err) {
                 res.send('Problem adding user to db.'); // CONSIDER: Might want to call next with error.  can add status code and error message.
             } else {
@@ -95,7 +84,6 @@ function handleError(err, res, msg) {
     });
 }
 
-// CHALLENGE:  Implement these API endpoints before next class
 router.route('/:id')
     .get(function (req, res) {
         mongoose.model('User').findById(req.id, function (err, user) {
@@ -115,7 +103,6 @@ router.route('/:id')
         mongoose.model('User').findById(req.id, function (err, user) {
             user.userName = req.body.userName || user.userName;
             user.password = req.body.password || user.password;
-            user.profile.email=req.body.profile.email || user.profile.email;
             user.save(function (err, person) {
                 if (err) {
                     res.status(404);

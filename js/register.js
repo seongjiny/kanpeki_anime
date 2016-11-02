@@ -22,7 +22,7 @@
         });
     }
 
-    function addUser(userName,email,password){
+    function addUser(userName,password){
         $.ajax({
             url: apiUrl,
             type: 'POST',
@@ -45,8 +45,8 @@
         });
     }
 
-    //Check for duplicate username or email
-    function checkUser(userName,email,password){
+    //Check for duplicate username
+    function checkUser(userName,password){
         var found= false;
         var size=users.length;
         //loop through users
@@ -55,14 +55,10 @@
                 alert("Username Already Exist");
                 i=size;
                 found=true;
-            }else if(users[i].profile.email==email){
-                alert("Email Already Exist");
-                i=size;
-                found=true;
             }
         }
         if(!found){
-            addUser(userName,email,password);
+            addUser(userName,password);
         }
     }
 
@@ -72,13 +68,12 @@
 
         $('button:submit[name="signup"]').on('click',function(){
             var uname = $('input:text[name="uname"]').val();
-            var email = $('input:text[name="email"]').val();
             var password = $('input:password[name="psw"]').val();
             var password2 = $('input:password[name="psw2"]').val();
             if(password!=password2){//if password and password2 does not match
                 alert("password does not match!");
             }else{
-                checkUser(uname,email,password);
+                checkUser(uname,password);
             }
         });
     });
