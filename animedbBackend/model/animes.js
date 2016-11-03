@@ -1,14 +1,15 @@
 var mongoose = require('mongoose');
 var animeSchema  = new mongoose.Schema({
-    userName: String
-    // firstName: String,
-    // lastName: String,
-    // email: String,
-    // homePhone: String,
-    // cellPhone: String,
-    // birthDay: Date,
-    // website: String,
-    // address: String
+    title: String,
+    language: String,
+    episode: Number,
+    type:String,
+    status:String,
+    startDate:Date,
+    endDate:Date,
+    synopsis:String,
+    poster:String
+
 });
 
 mongoose.model('Anime', animeSchema);

@@ -27,23 +27,42 @@ router.use(methodOverride(function (req, res) {
 router.route('/')
     // GET all users
     .get(function (req, res) {
-        // console.log(req.body.userName+"--"+req.body.password);
-        mongoose.model('User').find({
-            // userName:req.body.userName,
-            // password:req.body.password
-        }, function (err, user) {
-            if (err) {
-                return console.log(err); // CONSIDER: Might want to call next with error.  can add status code and error message.
-            } else {
-                // console.log(user);
-                // res.json(user);
-                res.format({
-                    json: function () {
-                        res.json(user);
-                    }
-                });
-            }
-        });
+        // console.log(req.body); 
+        // if(req.body.userName){
+        //     console.log("hello?");
+        //     mongoose.model('User').find({
+        //         userName:req.body.userName,
+        //         password:req.body.password
+        //     }, function (err, user){
+        //         if(err){
+        //             console.log("error occurred login");
+        //             return console.log(err);
+        //         }else{
+        //             res.send("login succeed");
+        //             console.log(user);
+        //             res.format({
+        //                 json:function(){
+        //                     res.json(user);
+        //                 }
+        //             });
+        //         }
+        //     });
+        // }else{
+            mongoose.model('User').find({
+                // userName:req.body.userName,
+                // password:req.body.password
+            }, function (err, user) {
+                if (err) {
+                    return console.log(err); // CONSIDER: Might want to call next with error.  can add status code and error message.
+                } else {
+                    res.format({
+                        json: function () {
+                            res.json(user);
+                        }
+                    });
+                }
+            });
+        // }
     })
     .post(function (req, res) { 
         mongoose.model('User').count({ 

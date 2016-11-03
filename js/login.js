@@ -27,6 +27,31 @@
             }
         });
     }
+    // Try with Post
+    // function verification(userName, password) {
+    //     $.ajax({
+    //         url: apiUrl,
+    //         type: 'GET',
+    //         dataType: 'JSON',
+    //         data:{
+    //             "userName": userName,
+    //             "password": password
+    //         },
+    //         success: function (data) {
+    //             if (data) {
+    //                 console.log(data);
+    //                 console.log("Ajax succ");
+    //                 // users = data;
+    //                 // displayUsers(users);
+    //             } else {
+    //                 console.log("Users not Found");
+    //             }
+    //         },
+    //         error: function (request, status, error) {
+    //             console.log(error, status, request);
+    //         }
+    //     });
+    // }
 
 
     // dynamically display all the users from api
@@ -69,10 +94,10 @@
 
     $(document).ready(function () {
         getUsers();   
-
         $('button:submit[name="login"]').on('click',function(){
             var uname = $('input:text[name="uname"]').val();
             var password = $('input:password[name="psw"]').val();
+            // checkUser(uname,password);
             checkUser(uname,password);
         });
     });
