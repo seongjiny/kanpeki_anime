@@ -97,7 +97,8 @@
 
     $(document).ready(function () {
         // geUsers();   
-        $('button:submit[name="login"]').on('click',function(){
+        $('button:submit[name="login"]').on('click',function(e){
+            e.preventDefault();
             var uname = $('input:text[name="uname"]').val();
             var password = $('input:password[name="psw"]').val();
             // checkUser(uname,password);
