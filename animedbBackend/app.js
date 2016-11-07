@@ -1,19 +1,22 @@
-var express = require('express');
-var path = require('path');
-// var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var express = require('express'),
+  path = require('path'),
+  // var favicon = require('serve-favicon');
+  logger = require('morgan'),
+  cookieParser = require('cookie-parser'),
+  bodyParser = require('body-parser'),
+  jwt = require('jsonwebtoken'),
+  jwtCheck = require('express-jwt'),
+  secret = 'mysecret',
 
-var db = require('./model/db');
+  db = require('./model/db'),
+  mongoose = require('mongoose'),
+  routes = require('./routes/index'),
+  users = require('./routes/users'),
+  animes = require('./routes/animes'),
+  users = require('./routes/users'),
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var animes = require('./routes/animes');
-var users = require('./routes/users');
-
-var app = express();
-var cors = require('cors');
+  app = express(),
+  cors = require('cors');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,8 +37,47 @@ app.use('/users', users);
 app.use('/animes', animes);
 app.use('/users', users);
 
+
+
+app.post('/login', (req, res) => {
+  if (!req.body.userName) {
+
+    return res.status(401).send("Send a username to login");
+  } else if (!req.body.password) {
+    return res.status(401).send("Send a passowrd to login");
+  } else {
+    mongoose.model('User').find({
+      userName: req.body.userName,
+      password: req.body.password
+    }, function (err, data) {
+      if (err) {
+        return console.log(err);
+      } else {
+        console.log(data);
+        var user = {
+          name: req.body.userName
+        };
+        if (data.length === 0) { //when user is not found with username and password
+          res.status(404).send("User not found");
+        } else {//user is found
+          res.format({
+            json: function () {
+          res.status(200).send({
+            id_token: jwt.sign(user, secret),
+            user: data
+          });
+              
+            }
+          });
+        }
+      }
+    });
+  }
+
+});
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -46,7 +88,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -57,7 +99,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,

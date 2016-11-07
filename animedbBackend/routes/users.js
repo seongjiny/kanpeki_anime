@@ -28,26 +28,26 @@ router.route('/')
     // GET all users
     .get(function (req, res) {
         // console.log(req.body); 
-        // if(req.body.userName){
-        //     console.log("hello?");
-        //     mongoose.model('User').find({
-        //         userName:req.body.userName,
-        //         password:req.body.password
-        //     }, function (err, user){
-        //         if(err){
-        //             console.log("error occurred login");
-        //             return console.log(err);
-        //         }else{
-        //             res.send("login succeed");
-        //             console.log(user);
-        //             res.format({
-        //                 json:function(){
-        //                     res.json(user);
-        //                 }
-        //             });
-        //         }
-        //     });
-        // }else{
+        if(req.body.userName){
+            console.log("hello?");
+            mongoose.model('User').find({
+                userName:req.body.userName,
+                password:req.body.password
+            }, function (err, user){
+                if(err){
+                    console.log("error occurred login");
+                    return console.log(err);
+                }else{
+                    res.send("login succeed");
+                    console.log(user);
+                    res.format({
+                        json:function(){
+                            res.json(user);
+                        }
+                    });
+                }
+            });
+        }else{
             mongoose.model('User').find({
                 // userName:req.body.userName,
                 // password:req.body.password
@@ -62,7 +62,7 @@ router.route('/')
                     });
                 }
             });
-        // }
+        }
     })
     .post(function (req, res) { 
         mongoose.model('User').count({ 
