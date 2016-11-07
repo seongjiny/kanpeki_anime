@@ -64,7 +64,7 @@ app.post('/login', (req, res) => {
             json: function () {
           res.status(200).send({
             id_token: jwt.sign(user, secret),
-            user: data
+            user: data[0]
           });
               
             }

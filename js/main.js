@@ -3,7 +3,7 @@
     var apiUrl = "http://localhost:3000/users/";
     var usersDisplayLocation;
     var Allusers;
-
+    // var user;
     // make ajax call to get all the users from api
     function getUsers() {
         $.ajax({
@@ -42,6 +42,13 @@
     $(document).ready(function () {
         // get users from api
         getUsers();
+        // if(user){
+        //     console.log("logged in");
+        //     console.log(user);
+        // }else{
+        //     console.log(user);
+        //     console.log("not logged in");
+        // }
     });
 
 })();
