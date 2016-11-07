@@ -1,79 +1,30 @@
 var express = require('express');
 var path = require('path');
 // var favicon = require('serve-favicon');
-//var logger = require('morgan');
+var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//var uuid = require('node-uuid'); //token part
-var expressJWT = require('express-jwt');
-var jwt = require('jsonwebtoken');
+var secret = 'mysecret';
+var cors = require('cors'); 
 
-
-
-
-// logger.token('id', function getId (req) { //token part
-//   return req.id
-// })
 
 var db = require('./model/db');
-
+var mongoose = require('mongoose');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var animes = require('./routes/animes');
 var users = require('./routes/users');
+var login = require('./routes/login.js');
 
 var app = express();
 var cors = require('cors');
+var key =  require('lodash');
+var jwt = require('jsonwebtoken');
+var jwtCheck = require('express-jwt');
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(expressJWT({secret: 'JASON'}).unless({path: ('/login', '/users')}));
-//app.use(assignId) //token part
-//app.use(logger(':id :method :url :response-time')) //token part
-
-// app.get('/', function (req, res) { //token test
-//   res.send('hello, world! please log in')
-// })
-app.post('/login',function(req, res){
-  console.log(req.body.userName);
-  if(!req.body.userName){
-    res.status(400).send('username required');
-    console.log("no username");
-    return;
-  }
-  if(!req.body.password){
-    res.status(400).send('password required');
-    console.log("no password");
-    return;
-  }
-
-  // users.findOne({username: req.body.userName}, function(err, user){
-  //   //console.log(username);
-  //   user.comparePassword(req.body.password, function(err, isMatch){
-  //     if (err) throw err;
-  //     if(!isMatch){
-  //       res.status(401).send('Invalid password');
-  //       console.log("Invalid password");
-
-  //     }else{
-  //       res.status(200).send('render to somewhere');
-  //       console.log("login");
-  //     }
-  //   });
-  // }
-
-  // )
-        var myToken = jwt.sign({ username: req.body.userName}, 'JASON');
-        res.status(200).json(myToken);
-        //res.render('/');
-        console.log("login");
-
-}
-);
-
-// function assignId (req, res, next) { //token part
-//   req.id = uuid.v4()
-//   next()
-// }
+//scopes
+var checkScopes = require('./scopes.js');
+var getScopesFrmoRequest = require('./scopes.js');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -81,7 +32,8 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-//app.use(logger('dev'));
+app.use(cors());
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -92,17 +44,90 @@ app.use(cors());
 app.use('/', routes);
 app.use('/users', users);
 app.use('/animes', animes);
-app.use('/users', users);
+//app.use('/login', login);
 
-// catch 404 and forward to error handler
+app.get('/getTest', function(req, res){
+ console.log("hit getTest");
+});
+
+
+
+app.post('/login', (req, res) => {
+  if (!req.body.username) {
+
+    return res.status(401).send("Send a username to login");
+  } else if (!req.body.password) {
+    return res.status(401).send("Send a passowrd to login");
+  } else {
+    mongoose.model('User').find({
+      userName: req.body.username,
+      password: req.body.password
+    }, function (err, data) {
+      if (err) {
+        return console.log(err);
+      } else {
+        // console.log(user[0].userName);
+        console.log(data);
+        var user = {
+          name: req.body.username
+        };
+        if(data.length === 0){ //when user is not found with username and password
+          res.status(404).send("User not found");
+        }else{//user is found
+          res.status(200).send({
+            id_token: jwt.sign(user, secret),
+            user: data[0]
+          });
+        }
+      }
+    });
+  }
+
+});
+
+
+
+// app.post('/create-api-token', (req, res) => {
+//   console.log("hit token");
+//   res.status(201).send({
+//     api_token: jwt.sign({
+//         tenant: req.body.username,
+//         scopes: getScopesFrmoRequest(req)
+//       },
+//       console.log(secret),
+//       secret,
+//       { expiresIn: 60*5 }
+//       )
+//   });
+// });
+
+app.use('/login', jwtCheck({secret: secret}));
+
+// app.use('/login', jwtCheck({
+//   //secret: process.env.API_SECRET,
+//   secret: secret,
+//   userProperty: 'token_payload'
+// }));
+
+// module.exports = function(app){
+//   app.post('/login/follow', checkScopes(['follow']), (req, res) => {
+//   return res.status(201).send({followed: true});
+// });
+// };
+
+// module.exports = function(app){
+//   app.get('/api/users/names', checkScopes(['read_users', 'read_names']), (req, res) => {
+//   return res.status(201).send({names: true});
+// });
+// };
+
+
+// error handlers
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
-
-// error handlers
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {

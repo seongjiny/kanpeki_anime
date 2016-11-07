@@ -1,23 +1,30 @@
+//frontend login
 (function () {
     "use strict";
-    var apiUrl = "http://localhost:3000/users/";
+    var apiUrl = "http://localhost:3000/";
     var usersDisplayLocation;
     var users;
 
     // make ajax call to get all the users from api
     function verification(username, pwd) {
+        //console.log("hit");
+        console.log(username);
+
         $.ajax({
-            url: apiUrl,
-            type: 'GET',
+            url: apiUrl + "login",
+            type: 'POST',
+           // dataType: 'JSON',
             data:{
-                "userName": username,
+                "username": username,
                 "password": pwd
-            },
-            dataType: 'JSON',
+            },      
             success: function (data) {
                 if (data) {
-                    users = data;
-                    displayUsers(users);
+                    //users = data;
+                    //displayUsers(users);
+                    console.log("hit login data");
+                    console.log(data[0]);
+                    //window.location.href = './index.html';
                 } else {
                     console.log("Users not Found");
                 }

@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var cookieParse = require('cookie-parser');
+var jwtAuth = require('express-jwt');
+
 
 // /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -23,6 +25,27 @@ router.use(methodOverride(function (req, res) {
     }
 }));
 
+
+router.route('/login')
+        .post(function(req, res){
+  console.log("hit login");
+  if(!req.body.userName){
+    res.status(400).send('username required');
+    console.log("no username");
+    return;
+  }
+  if(!req.body.password){
+    res.status(400).send('password required');
+    console.log("no password");
+    return;
+  }else{
+    return jwtAuth({
+    secret: process.env.USER_SECERT
+  });
+ }
+});
+ 
+
 // READY to build our API
 router.route('/')
     // GET all users
@@ -42,7 +65,7 @@ router.route('/')
             }
         });
     })
-    .post(function (req, res) { 
+    .post(function (req, res,next) { 
         mongoose.model('User').count({ 
             userName: req.body.userName
          }, function (err, count) {
@@ -72,18 +95,18 @@ router.route('/')
                 }
             }
         });
+    })
+    .delete(function (req, res){
+        mongoose.model('User').remove({userName: req.body.userName}, {
+            function (err){
+                if(err){
+                    res.status(500).send();
+                }else{
+                    res.status(200).send();
+                }
+            }
+        })
     });
-    // .delete(function (req, res){
-    //     mongoose.model('User').remove({userName: req.body.userName}, {
-    //         function (err){
-    //             if(err){
-    //                 res.status(500).send();
-    //             }else{
-    //                 res.status(200).send();
-    //             }
-    //         }
-    //     })
-    // });
 
 
 // route middleware to validata :id
