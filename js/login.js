@@ -36,6 +36,8 @@
                         }
                         console.log("store token success");
                         localStorage.setItem('token', response);
+                        localStorage.setItem('username',data.username);
+                        localStorage.setItem('profile',data.profile);
                         var localtokendata = localStorage.getItem('token');
                         console.log(localtokendata);
                         //sessionStorage.setItem('user', user);

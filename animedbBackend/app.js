@@ -57,7 +57,7 @@ app.post('/login', (req, res) => {
       if (err) {
         return console.log(err);
       } else {
-        console.log(data);
+        // console.log(data);
         var user = {
           name: req.body.userName
         };
@@ -68,15 +68,15 @@ app.post('/login', (req, res) => {
             json: function () {
               res.status(200).send({
                 id_token: jwt.sign(user, secret),
-                user:data[0]
-                // username: data[0].userName,
-                // profile: {
-                //   firstName: data[0].firstName,
-                //   lastName: data[0].lastName,
-                //   email: data[0].email,
-                //   phoneNumber: data[0].phoneNumber,
-                //   intro: data[0].intro
-                // }
+                // user:data[0]
+                username: data[0].userName,
+                profile: {
+                  firstName: data[0].firstName,
+                  lastName: data[0].lastName,
+                  email: data[0].email,
+                  phoneNumber: data[0].phoneNumber,
+                  intro: data[0].intro
+                }
 
               });
 
