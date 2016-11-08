@@ -50,6 +50,9 @@
             },
             error: function (request, status, error) {
                 console.log(error, status, request);
+                alert("wrong login information"); //send alert if wrong log in information
+                $('input:password[name="psw"]').val(""); // clear username input
+                $('input:text[name="uname"]').val("");  // clear password input
             }
         });
     }
