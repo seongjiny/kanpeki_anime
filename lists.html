@@ -13,6 +13,7 @@
 
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
+	
 
 </head>
 
@@ -24,14 +25,14 @@
         <ul class="navbar">
             <li><a href="index.html">Home</a></li>
             <li><a href="rankings.html">Rankings</a></li>
-            <li><a class="active" href="login.html">My Lists</a></li>
-            <li><a class="drop-btn" href="#">Account Settings</a></li>
+            <li><a class="active" href="lists.html">My Lists</a></li>
+            <li id="update-link"></li>
         </ul>
     </div>
 
     <!-- Page Content -->
     <div class="container">
-        <h1 class="list-heading">Browsing *username* Lists</h1>
+        <h1 class="list-heading">Browsing <span id = "username"></span> Lists</h1>
         <div class="lists-container">
             <div class="list-element">
                 <img class="list-el-img" src="img/wall6.jpg" alt="charlotte">
