@@ -15,7 +15,7 @@
                 success: function (data) {
                     if (data) {
                         console.log(data)
-                        // document.location.href="/";
+                        window.location.replace('login.html');
                     } else {
                         console.log("Problem occurred while registering.");
                     }
@@ -54,8 +54,8 @@
     }
 
     $(document).ready(function () {
-
-        $('button:submit[name="signup"]').on('click', function () {
+        $('button:submit[name="signup"]').on('click', function (e) {
+            e.preventDefault();
             var uname = $('input:text[name="uname"]').val();
             var password = $('input:password[name="psw"]').val();
             var password2 = $('input:password[name="psw2"]').val();
