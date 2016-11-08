@@ -14,8 +14,8 @@
                 },
                 success: function (data) {
                     if (data) {
-                        console.log(data)
-                        // document.location.href="/";
+                        alert("Thanks for Joining Us "+data.username+"!");
+                        window.location="./login.html";
                     } else {
                         console.log("Problem occurred while registering.");
                     }
@@ -37,7 +37,6 @@
     }
 
     function checkUserName(username,pwd) {
-        console.log("----"+username.length);
         if (username.length < 5 || username.length > 20) {
             alert("User Name should be between 5 and 20 characters");
             return -1;
@@ -55,7 +54,8 @@
 
     $(document).ready(function () {
 
-        $('button:submit[name="signup"]').on('click', function () {
+        $('button:submit[name="signup"]').on('click', function (e) {
+            e.preventDefault();
             var uname = $('input:text[name="uname"]').val();
             var password = $('input:password[name="psw"]').val();
             var password2 = $('input:password[name="psw2"]').val();

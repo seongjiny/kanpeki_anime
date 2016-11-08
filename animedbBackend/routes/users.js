@@ -26,10 +26,8 @@ router.use(methodOverride(function (req, res) {
 // READY to build our API
 router.route('/')
     // GET all users
-    .get(function (req, res) {
-        // console.log(req.body); 
+    .get(function (req, res) { 
         if(req.body.userName){
-            console.log("hello?");
             mongoose.model('User').find({
                 userName:req.body.userName,
                 password:req.body.password
@@ -81,7 +79,7 @@ router.route('/')
                         } else {
                             res.format({
                                 json: function () {
-                                    res.json(user);
+                                    res.json({username: user.userName});
                                 }
                             });
                         }

@@ -8,7 +8,8 @@ var animeSchema  = new mongoose.Schema({
     startDate:Date,
     endDate:Date,
     synopsis:String,
-    poster:String
+    poster:String,
+    
 
 });
 

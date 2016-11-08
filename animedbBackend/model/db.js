@@ -68,3 +68,4 @@ process.on('SIGTERM', function() {
 // Use plural form of name
 require('./users');
 require('./animes');
+require('./ranking');

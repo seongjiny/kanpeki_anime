@@ -13,7 +13,6 @@ var express = require('express'),
   routes = require('./routes/index'),
   users = require('./routes/users'),
   animes = require('./routes/animes'),
-  users = require('./routes/users'),
 
   app = express(),
   cors = require('cors');
@@ -62,11 +61,19 @@ app.post('/login', (req, res) => {
         } else {//user is found
           res.format({
             json: function () {
-          res.status(200).send({
-            id_token: jwt.sign(user, secret),
-            user: data[0]
-          });
-              
+              res.status(200).send({
+                id_token: jwt.sign(user, secret),
+                username: data[0].userName,
+                profile: {
+                  firstName: data[0].firstName,
+                  lastName: data[0].lastName,
+                  email: data[0].email,
+                  phoneNumber: data[0].phoneNumber,
+                  intro: data[0].intro
+                }
+
+              });
+
             }
           });
         }
