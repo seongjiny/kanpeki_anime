@@ -24,7 +24,14 @@
 
     $(document).ready(function () {
         // get users from api
-        cacheAnime();
+        // cacheAnime();
+
+        if (localStorage.getItem('token') != null) {
+            $('#logout-button').show();
+            console.log("")
+        } else {
+            $('#logout-button').hide();
+        }
     });
 
 })();

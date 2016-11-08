@@ -1,11 +1,8 @@
 var express = require('express'),
   path = require('path'),
-  // var favicon = require('serve-favicon');
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
-  jwt = require('jsonwebtoken'),
-  jwtCheck = require('express-jwt'),
   secret = 'mysecret',
 
   db = require('./model/db'),
@@ -13,9 +10,18 @@ var express = require('express'),
   routes = require('./routes/index'),
   users = require('./routes/users'),
   animes = require('./routes/animes'),
+  login = require('./routes/login'),
 
   app = express(),
-  cors = require('cors');
+  cors = require('cors'),
+  key =  require('lodash'),
+  jwt = require('jsonwebtoken'),
+  jwtCheck = require('express-jwt'),
+//scopes
+  checkScopes = require('./scopes.js'),
+  getScopesFrmoRequest = require('./scopes.js');
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,28 +29,27 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors());
-
 app.use('/', routes);
 app.use('/users', users);
-app.use('/animes', animes);
+app.use('/animes', animes,jwtCheck({secret: secret}));
 app.use('/users', users);
 
 
 
 app.post('/login', (req, res) => {
   if (!req.body.userName) {
-
     return res.status(401).send("Send a username to login");
   } else if (!req.body.password) {
     return res.status(401).send("Send a passowrd to login");
   } else {
+    console.log(req.body);
     mongoose.model('User').find({
       userName: req.body.userName,
       password: req.body.password
@@ -63,14 +68,15 @@ app.post('/login', (req, res) => {
             json: function () {
               res.status(200).send({
                 id_token: jwt.sign(user, secret),
-                username: data[0].userName,
-                profile: {
-                  firstName: data[0].firstName,
-                  lastName: data[0].lastName,
-                  email: data[0].email,
-                  phoneNumber: data[0].phoneNumber,
-                  intro: data[0].intro
-                }
+                user:data[0]
+                // username: data[0].userName,
+                // profile: {
+                //   firstName: data[0].firstName,
+                //   lastName: data[0].lastName,
+                //   email: data[0].email,
+                //   phoneNumber: data[0].phoneNumber,
+                //   intro: data[0].intro
+                // }
 
               });
 

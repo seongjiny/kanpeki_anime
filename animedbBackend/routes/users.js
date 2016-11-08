@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var cookieParse = require('cookie-parser');
+var jwtAuth = require('express-jwt');
 
 // /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -23,29 +24,49 @@ router.use(methodOverride(function (req, res) {
     }
 }));
 
+router.route('/login')
+    .post(function (req, res) {
+        console.log("hit login");
+        if (!req.body.userName) {
+            res.status(400).send('username required');
+            console.log("no username");
+            return;
+        }
+        if (!req.body.password) {
+            res.status(400).send('password required');
+            console.log("no password");
+            return;
+        } else {
+            return jwtAuth({
+                secret: process.env.USER_SECERT
+            });
+        }
+    });
+
+
 // READY to build our API
 router.route('/')
     // GET all users
-    .get(function (req, res) { 
-        if(req.body.userName){
+    .get(function (req, res) {
+        if (req.body.userName) {
             mongoose.model('User').find({
-                userName:req.body.userName,
-                password:req.body.password
-            }, function (err, user){
-                if(err){
+                userName: req.body.userName,
+                password: req.body.password
+            }, function (err, user) {
+                if (err) {
                     console.log("error occurred login");
                     return console.log(err);
-                }else{
+                } else {
                     res.send("login succeed");
                     console.log(user);
                     res.format({
-                        json:function(){
+                        json: function () {
                             res.json(user);
                         }
                     });
                 }
             });
-        }else{
+        } else {
             mongoose.model('User').find({
                 // userName:req.body.userName,
                 // password:req.body.password
@@ -62,10 +83,10 @@ router.route('/')
             });
         }
     })
-    .post(function (req, res) { 
-        mongoose.model('User').count({ 
+    .post(function (req, res) {
+        mongoose.model('User').count({
             userName: req.body.userName
-         }, function (err, count) {
+        }, function (err, count) {
             if (err) {
                 return console.log(err);
             } else {
@@ -79,14 +100,14 @@ router.route('/')
                         } else {
                             res.format({
                                 json: function () {
-                                    res.json({username: user.userName});
+                                    res.json({ username: user.userName });
                                 }
                             });
                         }
                     })
                     console.log("New User is successfully added");
                     return 0; //succeed adding to user
-                }else{
+                } else {
                     console.log("Duplicate userName");
                     return -1;
                 }
