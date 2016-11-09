@@ -4,8 +4,10 @@
 
     function updateUser(pwd,profile) {
         // if (checkUserName(userName,password) == 0) {
+            var userID=localStorage.getItem('id');
+            console.log(profile);
             $.ajax({
-                url: apiUrl,
+                url: apiUrl+userID,
                 type: 'PUT',
                 dataType: 'JSON',
                 data: {
@@ -49,10 +51,10 @@
         $('button:submit[name="submit-change"]').on('click', function (e) {
             e.preventDefault();
             var pwd = $('input:password[name="psw"]').val(),
-                fname = $('input:password[name="fname"]').val(),
-                lname = $('input:password[name="lname"]').val(),
-                emailAddr = $('input:password[name="email"]').val(),
-                intros = $('input:password[name="intro"]').val();
+                fname = $('input:text[name="fname"]').val(),
+                lname = $('input:text[name="lname"]').val(),
+                emailAddr = $('input:text[name="email"]').val(),
+                intros = $('textarea[name="intro"]').val();
             updateUser(pwd,{
                 firstName: fname,
                 lastName: lname,

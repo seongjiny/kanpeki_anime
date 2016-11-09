@@ -70,6 +70,7 @@ app.post('/login', (req, res) => {
                 id_token: jwt.sign(user, secret),
                 // user:data[0]
                 username: data[0].userName,
+                user_id:data[0]._id,
                 profile: {
                   firstName: data[0].firstName,
                   lastName: data[0].lastName,
