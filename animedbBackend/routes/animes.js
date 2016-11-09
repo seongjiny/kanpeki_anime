@@ -4,6 +4,8 @@ var express = require('express'),
     bodyParser = require('body-parser'), // parse info from POST
     methodOverride = require('method-override');  // used to manipulate POST data
 
+var RANKING = mongoose.model('Ranking');
+
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(methodOverride(function (req, res) {
     if (req.body && typeof req.body == 'object' && '_method' in req.body) {
@@ -12,6 +14,17 @@ router.use(methodOverride(function (req, res) {
         return method;
     }
 }));
+
+router.route('/:listName')
+    .get(function (req, res, next){
+        console.log(req.params.listName);
+        RANKING.find({}, function (err, anime) {
+            console.log(anime);
+        });
+        res.status(204);
+        res.json("null");
+        
+    });
 
 // READY to build our API
 router.route('/')

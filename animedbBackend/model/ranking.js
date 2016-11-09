@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 var rankingSchema  = new mongoose.Schema({
     type: String, //like action, romance, etc
-    animes:{
+    rnakings:{
         rankingPoints: Number,
-        anime_id:String
+        anime_id:[String]
     }
 });
 
