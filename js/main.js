@@ -28,7 +28,7 @@
 
         if (localStorage.getItem('token') != null) {
             $('#login-link').html("<a href=\"Lists.html\">My Lists</a>");
-            $('#update-link').html("<a href=\"update.html\">Update</a>");
+            $('#update-link').html("<a href=\"update.html\">Settings</a>");
             $('#logout-button').show();
             console.log("");
         } else {

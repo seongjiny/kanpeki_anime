@@ -25,7 +25,7 @@
             //console.log("hit testtoken");
             //testForToken();
             logout();
-            window.location="./login.html";
+            window.location="./index.html";
         });    
         
     });
