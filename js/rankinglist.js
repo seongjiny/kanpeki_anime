@@ -3,12 +3,7 @@
     var apiUrl = "http://localhost:3000/animes/";
     var animeidList;
     var anime = [];
-    var editForm = false;
-    // FormsFields will be used when creating the forms
-    var formFields = [
-        {name: "userName", des: "User Name *", type: "text", required: true},
-        {name:"password",des:"Password *",type:"text",required:true}
-    ];
+    
     function getLists(genre) {
         $.ajax({
             url: apiUrl + "rankings/" + genre,

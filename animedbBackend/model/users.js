@@ -8,7 +8,8 @@ var userSchema  = new mongoose.Schema({
         email: String,
         phoneNumber: String,
         intro:String
-    }
+    },
+    list: [String]
 });
 
 mongoose.model('User', userSchema);

@@ -6,6 +6,7 @@ var express = require('express'),
 
 var RANKING = mongoose.model('Ranking');
 var ANIME = mongoose.model('Anime');
+var USER = mongoose.model('User');
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(methodOverride(function (req, res) {
@@ -35,6 +36,19 @@ router.route('/anime/:animeID')
                 console.log(err); 
             } else {
                 res.json(anime);
+            }
+        });        
+    });
+
+router.route('/:username')
+    .get(function (req, res, next){
+        USER.find({"userName":req.params.username}, function (err, list) {
+             if (err) {
+                console.log(err); 
+            } else if (list){
+                res.json(list[0].list);
+            }else{
+                console.log("not found");
             }
         });        
     });
