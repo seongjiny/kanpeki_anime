@@ -35,7 +35,7 @@
                         if (tokenerr) {
                             throw tokenerr;
                         }
-                        console.log("store token success");
+                       // console.log("store token success");
                         localStorage.setItem('token', response);
                         //receive user information and store in local storage
                         localStorage.setItem('username',data.username);

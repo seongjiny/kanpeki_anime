@@ -1,6 +1,9 @@
 (function () {
     "use strict";
     var apiUrl = "http://localhost:3000/";
+    var time = 20000000000000; // 20000 about 10s
+    var now = new Date().getTime();
+    var setupTime = localStorage.getItem('setupTime');
     // var user;
     // make ajax call to get all the users from api
     function cacheAnime() {
@@ -25,6 +28,15 @@
     $(document).ready(function () {
         // get users from api
         // cacheAnime();
+       
+            if (setupTime == null) {
+                localStorage.setItem('setupTime', now)
+            } else {
+                if(now-setupTime > time) {
+                    localStorage.clear()
+                    localStorage.setItem('setupTime', now);
+                }
+            }
 
         if (localStorage.getItem('token') != null) {
             $('#login-link').html("<a href=\"lists.html\">My Lists</a>");
