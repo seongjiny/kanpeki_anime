@@ -15,6 +15,7 @@
             dataType: 'JSON',
             success: function (data) {
                 if (data) {
+                    var Allusers;
                     Allusers = data;
                     displayUsers(Allusers);
                 } else {

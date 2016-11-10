@@ -30,6 +30,7 @@
                     console.log("hit token");
 
                     response = data.id_token;
+                    //noinspection JSAnnotator
                     function tokenSuccess(tokenerr, response) {
                         if (tokenerr) {
                             throw tokenerr;

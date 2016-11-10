@@ -56,3 +56,11 @@ span.psw {
 .register-container, .login-container {
     padding: 10px;
 }
+
+.profile-img {
+    width: 100%;
+}
+
+#profile-form {
+    width: 60%;
+}

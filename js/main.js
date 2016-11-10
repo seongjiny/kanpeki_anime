@@ -27,7 +27,7 @@
         // cacheAnime();
 
         if (localStorage.getItem('token') != null) {
-            $('#login-link').html("<a href=\"Lists.html\">My Lists</a>");
+            $('#login-link').html("<a href=\"lists.html\">My Lists</a>");
             $('#update-link').html("<a href=\"update.html\">Settings</a>");
             console.log("");
         } else {
