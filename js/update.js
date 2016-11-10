@@ -1,18 +1,23 @@
 (function () {
     "use strict";
     var apiUrl = "http://localhost:3000/users/";
-
+    var userID=localStorage.getItem('id');
     function updateUser(pwd,profile) {
         // if (checkUserName(profile.email,password) == 0) {
-            var userID=localStorage.getItem('id');
+            
             console.log(profile);
+            // console.log(typeof );
+            var profileJson = JSON.parse(profile);
+            console.log(typeof profileJson);
             $.ajax({
                 url: apiUrl+userID,
                 type: 'PUT',
                 dataType: 'JSON',
                 data: {
                     "password": pwd,
-                    "profile": profile
+                    profile:profileJson
+
+                    
                 },
                 success: function (data) {
                     if (data) {
@@ -48,6 +53,20 @@
         // }
         return 0;
     }
+    function deleteUser(){
+         $.ajax({
+                url: apiUrl+userID,
+                type: 'DELETE',
+                success: function (data) {
+                    localStorage.clear();
+                        window.location="./index.html";
+                    
+                },
+                error: function (request, status, error) {
+                    console.log(error, status, request);
+                }
+            });
+    }
     function displayUserProfile(){
         var email = localStorage.getItem('email');
         var firstName = localStorage.getItem('firstName');
@@ -76,12 +95,12 @@
                 lname = $('input:text[name="lname"]').val(),
                 emailAddr = $('input:text[name="email"]').val(),
                 intros = $('textarea[name="intro"]').val();
-            updateUser(pwd,{
-                firstName: fname,
-                lastName: lname,
-                email:emailAddr,
-                intro:intros
-            });
+            updateUser(pwd,'{"firstName": fname,"lastName": lname,"email":emailAddr,"intro":intros}');
+
+        });
+        $('#delete-user-button').on('click', function (e) {
+            e.preventDefault();
+            deleteUser();
 
         });
     });

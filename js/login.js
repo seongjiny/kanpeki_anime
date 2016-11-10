@@ -38,10 +38,10 @@
                         localStorage.setItem('token', response);
                         //receive user information and store in local storage
                         localStorage.setItem('username',data.username);
-                        localStorage.setItem('email',data.profile.email);
-                        localStorage.setItem('firstName',data.profile.firstName);
-                        localStorage.setItem('lastName',data.profile.lastName);
-                        localStorage.setItem('intro',data.profile.intro);
+                        if(data.profile.email) localStorage.setItem('email',data.profile.email);
+                        if(data.profile.firstName) localStorage.setItem('firstName',data.profile.firstName);
+                        if(data.profile.lastName) localStorage.setItem('lastName',data.profile.lastName);
+                        if(data.profile.intro) localStorage.setItem('intro',data.profile.intro);
                         
                         localStorage.setItem('id',data.user_id);
                         var localtokendata = localStorage.getItem('token');

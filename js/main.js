@@ -29,12 +29,10 @@
         if (localStorage.getItem('token') != null) {
             $('#login-link').html("<a href=\"Lists.html\">My Lists</a>");
             $('#update-link').html("<a href=\"update.html\">Settings</a>");
-            $('#logout-button').show();
             console.log("");
         } else {
             $('#login-link').html("<a href=\"login.html\">Log in</a>");
             $('#update-link').html("<a href=\"register.html\">Register</a>");
-            $('#logout-button').hide();
         }
     });
 
