@@ -160,17 +160,11 @@ router.route('/:id')
         console.log(req.body);
         mongoose.model('User').findById(req.id, function (err, user) {
             user.password = req.body.password || user.password;
-            if(req.body.profile){
-                user.profile.firstName = req.body.profile.firstName || user.profile.firstName;
-                user.profile.lastName = req.body.profile.lastName || user.profile.lastName;
-                user.profile.email = req.body.profile.email || user.profile.email;
-                user.profile.intro = req.body.profile.intro || user.profile.intro;
-            }
+            user.profile.firstName = req.body.firstName || user.profile.firstName;
+            user.profile.lastName = req.body.lastName || user.profile.lastName;
+            user.profile.email = req.body.email || user.profile.email;
+            user.profile.intro = req.body.intro || user.profile.intro;
             user.save(function (err, person) {
-                // console.log(req.body);
-                // console.log(req.body.profile[firstName]);
-                // console.log("hi");
-                // console.log(req.body.profile.firstName);
                 
                 if (err) {
                     res.status(404);
