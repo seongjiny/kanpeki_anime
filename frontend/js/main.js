@@ -47,9 +47,9 @@
             $('#update-link').html("<a href=\"register.html\">Register</a>");
         }
 
-          $(window).bind("beforeunload", function() { 
-            localStorage.clear(); 
-    });
+    //       $(window).bind("beforeunload", function() { 
+    //         localStorage.clear(); 
+    // });
     });
 
 })();
