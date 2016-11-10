@@ -3,7 +3,7 @@
     var apiUrl = "http://localhost:3000/users/";
 
     function updateUser(pwd,profile) {
-        // if (checkUserName(userName,password) == 0) {
+        // if (checkUserName(profile.email,password) == 0) {
             var userID=localStorage.getItem('id');
             console.log(profile);
             $.ajax({
@@ -31,6 +31,9 @@
     }
 
     function checkUserName(email,pwd) {
+        // if(pwd!=null){
+
+        // }
         // if (email.getIndexOf('@')===-1) {
         //     alert("User Name should be between 5 and 20 characters");
         //     return -1;
@@ -45,9 +48,27 @@
         // }
         return 0;
     }
+    function displayUserProfile(){
+        var email = localStorage.getItem('email');
+        var firstName = localStorage.getItem('firstName');
+        var lastName = localStorage.getItem('lastName');
+        var intro=localStorage.getItem('intro');
+        if(email){
+            $('input:text[name="email"]').val(email);
+        }
+        if(firstName){
+             $('input:text[name="fname"]').val(firstName);
+        }
+        if(lastName){
+             $('input:text[name="lname"]').val(lastName);
+        }
+        if(intro){
+             $('textarea[name="intro"]').val(intro);
+        }
+    }
 
     $(document).ready(function () {
-
+        displayUserProfile();
         $('button:submit[name="submit-change"]').on('click', function (e) {
             e.preventDefault();
             var pwd = $('input:password[name="psw"]').val(),

@@ -72,11 +72,11 @@ app.post('/login', (req, res) => {
                 username: data[0].userName,
                 user_id:data[0]._id,
                 profile: {
-                  firstName: data[0].firstName,
-                  lastName: data[0].lastName,
-                  email: data[0].email,
-                  phoneNumber: data[0].phoneNumber,
-                  intro: data[0].intro
+                  firstName: data[0].profile.firstName,
+                  lastName: data[0].profile.lastName,
+                  email: data[0].profile.email,
+                  phoneNumber: data[0].profile.phoneNumber,
+                  intro: data[0].profile.intro
                 }
 
               });
