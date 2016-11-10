@@ -58,6 +58,7 @@
         }
         return 0;
     }
+
     function updateProfile(profile){
         if(profile.email) localStorage.setItem('email',profile.email);
         if(profile.firstName) localStorage.setItem('firstName',profile.firstName);
@@ -88,7 +89,7 @@
         var lastName = localStorage.getItem('lastName');
         var intro = localStorage.getItem('intro');
         if (email) {
-            $('input:text[name="email"]').val(email);
+            $('#update-email').val(email);
         }
         if (firstName) {
             $('input:text[name="fname"]').val(firstName);
@@ -108,7 +109,7 @@
             var pwd = $('input:password[name="psw"]').val(),
                 fname = $('input:text[name="fname"]').val(),
                 lname = $('input:text[name="lname"]').val(),
-                emailAddr = $('input:text[name="email"]').val(),
+                emailAddr = $('#update-email').val(),
                 intros = $('textarea[name="intro"]').val();
             updateUser(pwd, {
                 "firstName": fname, 
