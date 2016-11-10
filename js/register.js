@@ -44,7 +44,7 @@
             alert("Illegal character detected in User Name.");
             return -1;
         } else if(pwd.length<8||pwd.length>20){
-            alsert("Password should be between 8 and 20 characters")
+            alert("Password should be between 8 and 20 characters");
             return -1;
         }else{
             return 0;

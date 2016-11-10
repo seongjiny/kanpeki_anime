@@ -2,6 +2,17 @@
     "use strict";
     var apiUrl = "http://localhost:3000/users/";
     var userID = localStorage.getItem('id');
+    //var r = confirm("Press a button");
+
+    // function confirmButton(){
+    //     var r;
+    //     if (confirm("Press a button!") == true) {
+    //         x = "You pressed OK!";
+    //         } else {
+    //         x = "You pressed Cancel!";
+    //     }
+    // }
+
     function updateUser(pwd, profile) {
         if (checkPassword(pwd) == 0) {
 
@@ -23,6 +34,7 @@
                 success: function (data) {
                     if (data) {
                         updateProfile(profile);
+
                         window.location = "./index.html";
                     } else {
                         console.log("Problem occurred while updating user info.");
@@ -58,8 +70,11 @@
             url: apiUrl + userID,
             type: 'DELETE',
             success: function (data) {
+
                 localStorage.clear();
                 window.location = "./index.html";
+                 
+
 
             },
             error: function (request, status, error) {
@@ -105,7 +120,11 @@
         });
         $('#delete-user-button').on('click', function (e) {
             e.preventDefault();
-            deleteUser();
+            var r = confirm("Do you want to delete all of the profile?");
+            if (r == true) {
+                deleteUser();
+                window.location = "./index.html";
+            }     
 
         });
     });
