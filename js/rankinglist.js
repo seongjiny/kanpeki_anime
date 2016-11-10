@@ -38,6 +38,7 @@
                     anime.push(data[0]);
                     if(anime.length==animeidList.length){
                         displayAnimes();
+                        finishSetup();
                     }
                 } else {
                     console.log("Anime not Found");
@@ -56,7 +57,7 @@
     }
 
     function displayAnime(container, anime) {
-        var animeElement = $("<div class=\"list-element\">"+
+        var animeElement = $('<div class="list-element" id="'+anime.animedb_id+"\">"+
                 "<img class=\"list-el-img\" src=\""+ anime.poster +"\" alt=\""+ anime.title +"\">"+
                 "<div class=\"item-description\">"+
                 "<h2>"+ anime.title +"</h2>"+
@@ -65,7 +66,6 @@
                 "<span>"+ "Ends at : "+anime.endDate +"&nbsp;&nbsp;&nbsp;"+"</span>"+
                 "</div>"+
             "</div>");
-            
         container.append(animeElement);
     }
 
@@ -76,6 +76,14 @@
     });
     }
 
+    function finishSetup(){
+        $(".list-element").click(
+                function (event){
+                    localStorage.setItem("anime",$(this).attr("id"));
+                    window.location.href = "anime.html";
+            }
+        );
+    }
     $(document).ready(function () {
         getLists(localStorage.getItem("genre"));
     });

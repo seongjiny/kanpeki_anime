@@ -6,6 +6,7 @@ var animeSchema  = new mongoose.Schema({
     endDate:String,
     poster:String,
     episodes: String,
+    reviews:[String]
 });
 
 mongoose.model('Anime', animeSchema);
