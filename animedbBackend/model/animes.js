@@ -1,16 +1,11 @@
 var mongoose = require('mongoose');
 var animeSchema  = new mongoose.Schema({
     title: String,
-    language: String,
-    episode: Number,
-    type:String,
-    status:String,
-    startDate:Date,
-    endDate:Date,
-    synopsis:String,
+    animedb_id:String,
+    startDate:String,
+    endDate:String,
     poster:String,
-    
-
+    episodes: String,
 });
 
 mongoose.model('Anime', animeSchema);

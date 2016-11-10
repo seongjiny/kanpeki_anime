@@ -5,6 +5,7 @@ var express = require('express'),
     methodOverride = require('method-override');  // used to manipulate POST data
 
 var RANKING = mongoose.model('Ranking');
+var ANIME = mongoose.model('Anime');
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(methodOverride(function (req, res) {
@@ -15,15 +16,27 @@ router.use(methodOverride(function (req, res) {
     }
 }));
 
-router.route('/:listName')
+router.route('/rankings/:listName')
     .get(function (req, res, next){
-        console.log(req.params.listName);
-        RANKING.find({}, function (err, anime) {
-            console.log(anime);
-        });
-        res.status(204);
-        res.json("null");
-        
+        RANKING.find({"genre":req.params.listName}, function (err, anime) {
+            if (err) {
+                console.log(err); 
+            } else {
+                res.json(anime);
+            }
+        });        
+    });
+
+router.route('/anime/:animeID')
+    .get(function (req, res, next){
+        console.log(req.params.animeID);
+        ANIME.find({"animedb_id":req.params.animeID}, function (err, anime) {
+            if (err) {
+                console.log(err); 
+            } else {
+                res.json(anime);
+            }
+        });        
     });
 
 // READY to build our API
