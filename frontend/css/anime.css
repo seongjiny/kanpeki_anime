@@ -1,0 +1,34 @@
+#bodyWrapper{
+	background-color: #e9f8ff;
+	font-size: 10pt;
+	font-family: Arial, sans-serif;
+	padding: 10px;
+	margin: auto;
+}
+
+#bodyWrapper img {
+    margin: auto;
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+#AddToMyList{
+    background-color: #31aeff;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.container {
+    border: 3px solid rgba(50, 174, 255, 0.45);
+    width: 30%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #efefef;
+}

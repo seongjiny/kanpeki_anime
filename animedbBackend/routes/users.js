@@ -4,10 +4,7 @@ var jwt = require('jsonwebtoken');
 var cookieParse = require('cookie-parser');
 var jwtAuth = require('express-jwt');
 
-// /* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
+
 
 var express = require('express'),
     router = express.Router(),
@@ -41,6 +38,30 @@ router.route('/login')
                 secret: process.env.USER_SECERT
             });
         }
+    });
+
+router.route('/:username/:animeid')
+    .put(function (req, res){
+        mongoose.model('User').find({"userName": req.params.username},function(err, user){
+            if(err){
+                console.log(err);
+            }else{
+                if(user[0].list.indexOf(req.params.animeid)==-1){
+                    user[0].list.push(req.params.animeid);
+                user[0].save(function (err, user){
+                    if(err){
+                        handleError(err,res,"could not update list",400);
+                    }else{
+                        res.status(204);
+                        res.json(user[0]);
+                    }
+                })
+                }else{
+                    res.status(204);
+                    res.json(user[0]);
+                }
+            }
+        });
     });
 
 

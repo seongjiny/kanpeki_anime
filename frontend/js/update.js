@@ -1,6 +1,6 @@
 (function () {
     "use strict";
-    var apiUrl = "http://localhost:3000/users/";
+    var apiUrl = "https://csse280-kanpekianime-backend.herokuapp.com/users/";
     var userID = localStorage.getItem('id');
     //var r = confirm("Press a button");
 

@@ -1,6 +1,6 @@
 (function () {
     "use strict";
-    var apiUrl = "http://localhost:3000/animes/";
+    var apiUrl = "https://csse280-kanpekianime-backend.herokuapp.com/animes";
     var anime;
     var editForm = false;
     // FormsFields will be used when creating the forms

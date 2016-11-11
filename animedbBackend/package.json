@@ -1,9 +1,13 @@
 {
-  "name": "ContactsAppBackend",
+  "name": "kanpekianime",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
+  },
+  "engines": {
+    "node": "~6.4.0",
+    "npm": "3.10.3"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
@@ -11,7 +15,9 @@
     "cors": "^2.8.1",
     "debug": "~2.2.0",
     "express": "^4.13.4",
+    "express-jwt": "^5.1.0",
     "jade": "~1.11.0",
+    "jsonwebtoken": "^7.1.9",
     "method-override": "^2.3.6",
     "mongoose": "^4.6.5",
     "morgan": "^1.7.0",

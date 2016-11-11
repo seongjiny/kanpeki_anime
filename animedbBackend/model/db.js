@@ -4,7 +4,11 @@ var mongoose = require('mongoose');
 // Will be used to define a function to accept 
 // message and callback function
 var gracefulShutdown;
-var dbURI = 'mongodb://localhost/animedb';
+var dbURI = 'mongodb://yoons1:a4862795@ds139937.mlab.com:39937/animedb';
+if (process.env.NODE_ENV === 'production') {
+    dbURI = process.env.MLAB_URI;
+}
+
 mongoose.connect(dbURI);
 
 // Emulating disconnection events on Windows

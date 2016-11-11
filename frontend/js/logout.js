@@ -1,7 +1,7 @@
 //frontend login
 (function () {
     "use strict";
-    var apiUrl = "http://localhost:3000/";
+    var apiUrl = "https://csse280-kanpekianime-backend.herokuapp.com/";
     var usersDisplayLocation;
     var users;
     var response;

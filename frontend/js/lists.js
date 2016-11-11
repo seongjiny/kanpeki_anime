@@ -1,6 +1,6 @@
 (function () {
     "use strict";
-    var apiUrl = "http://localhost:3000/animes/";
+    var apiUrl = "https://csse280-kanpekianime-backend.herokuapp.com/animes/";
     var animeidList;
     var anime = [];
     
@@ -11,9 +11,16 @@
             dataType: 'JSON',
             success: function (data) {
                 if (data) {
+                    console.log(data);
+                    if(data.length == 0){
+                        alert("Your list is empty");
+                        window.location.href = "rankings.html";
+                    }
                     animeidList = data;
                     getAnimes();
                 } else {
+                    alert("Your list is empty");
+                    window.location.href = "rankings.html";
                     console.log("Rankings not found");
                 }
             },

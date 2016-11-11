@@ -1,6 +1,6 @@
 (function () {
     "use strict";
-    var apiUrl = "http://localhost:3000/animes/";
+    var apiUrl = "https://csse280-kanpekianime-backend.herokuapp.com/animes/";
     var animeidList;
     var anime = [];
     
